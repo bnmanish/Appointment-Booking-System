@@ -67,6 +67,17 @@ const AdminLogin = () => {
             />
           </div>
 
+          <div style={styles.field}>
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
           <button type="submit" disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>
