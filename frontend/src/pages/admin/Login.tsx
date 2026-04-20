@@ -34,6 +34,16 @@ const Login: React.FC = () => {
           />
         </div>
 
+        <div style={styles.field}>
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={styles.input}
+          />
+        </div>
+
         <button type="submit" style={styles.button}>
           Login
         </button>
