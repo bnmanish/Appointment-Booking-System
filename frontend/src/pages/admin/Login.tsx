@@ -21,6 +21,7 @@ const Login: React.FC = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             style={styles.input}
+            required
           />
         </div>
 
@@ -31,16 +32,7 @@ const Login: React.FC = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             style={styles.input}
-          />
-        </div>
-
-        <div style={styles.field}>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={styles.input}
+            required
           />
         </div>
 
