@@ -12,33 +12,32 @@ const Login: React.FC = () => {
   return (
     <div style={styles.wrapper}>
       <form style={styles.card} onSubmit={handleSubmit}>
-        <h2 style={styles.heading}>Admin Login</h2>
+        <h2 style={styles.heading}>Welcome Back 👋</h2>
+        <p style={styles.subText}>Login to your account</p>
 
-        <div style={styles.field}>
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={styles.input}
-            required
-          />
-        </div>
+        <input
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={styles.input}
+          required
+        />
 
-        <div style={styles.field}>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={styles.input}
-            required
-          />
-        </div>
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={styles.input}
+          required
+        />
 
         <button type="submit" style={styles.button}>
           Login
         </button>
+
+        <p style={styles.footer}>Forgot Password?</p>
       </form>
     </div>
   );
@@ -49,44 +48,64 @@ export default Login;
 // 🎨 Styles
 const styles: { [key: string]: React.CSSProperties } = {
   wrapper: {
-    height: "100vh",
+    minHeight: "100vh",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#f5f5f5",
+    background: "linear-gradient(135deg, #f59e0b, #dc2626)", // soft orange → deep red
   },
+
   card: {
-    width: "300px",
-    padding: "20px",
-    borderRadius: "6px",
-    background: "#fff",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    width: "340px",
+    padding: "30px",
+    borderRadius: "16px",
+    background: "#ffffff",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
     display: "flex",
     flexDirection: "column",
     gap: "15px",
   },
+
   heading: {
     textAlign: "center",
+    color: "#b91c1c", // deep red
+    margin: 0,
+  },
+
+  subText: {
+    textAlign: "center",
+    fontSize: "14px",
+    color: "#666",
     marginBottom: "10px",
   },
-  field: {
-    display: "flex",
-    flexDirection: "column",
-    fontSize: "14px",
-  },
+
   input: {
-    marginTop: "5px",
-    padding: "8px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
+    padding: "12px",
+    borderRadius: "8px",
+    border: "1px solid #ddd",
+    fontSize: "14px",
+    outline: "none",
+    transition: "0.3s",
   },
+
   button: {
     marginTop: "10px",
-    padding: "10px",
+    padding: "12px",
     border: "none",
-    borderRadius: "4px",
-    background: "#007bff",
+    borderRadius: "8px",
+    background: "linear-gradient(135deg, #f59e0b, #dc2626)",
     color: "#fff",
+    fontWeight: "bold",
+    fontSize: "15px",
+    cursor: "pointer",
+    transition: "0.3s",
+  },
+
+  footer: {
+    textAlign: "center",
+    fontSize: "13px",
+    color: "#c2410c",
     cursor: "pointer",
   },
 };
