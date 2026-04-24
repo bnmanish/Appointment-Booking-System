@@ -1,8 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\LoginController;
 
-Route::get('/test', function () {
-    return response()->json([
-        'message' => 'API v1 is working'
-    ]);
-});
+
+Route::post('/login', [LoginController::class, 'login']);
