@@ -1,18 +1,48 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({ email, password });
+    // console.log({ email, password });
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/v1/login",
+        {
+          email,
+          password,
+        }
+      );
+      const data = response.data;
+      if (data.status) {
+        // ✅ store token
+        localStorage.setItem("token", data.token);
+        // ✅ store user name
+        localStorage.setItem("adminName", data.user.name);
+        // ✅ redirect
+        navigate("/admin/dashboard");
+      } else {
+        alert(data.message);
+      }
+    } catch (error: any) {
+      console.error(error);
+
+      if (error.response) {
+        alert(error.response.data.message || "Login failed");
+      } else {
+        alert("Server not reachable");
+      }
+    }
   };
 
   return (
     <div style={styles.wrapper}>
       <div style={styles.container}>
-        {/* Login Card */}
         <form style={styles.card} onSubmit={handleSubmit}>
           <h2 style={styles.heading}>
             Appointment Booking System
@@ -47,7 +77,6 @@ const Login: React.FC = () => {
           <p style={styles.footer}>Forgot Password?</p>
         </form>
 
-        {/* copyright message */}
         <p style={styles.copy}>
           © {new Date().getFullYear()} All rights reserved. Created by{" "}
           <a
@@ -73,15 +102,14 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    // background: "linear-gradient(135deg, #f59e0b, #dc2626)",
-    background: "linear-gradient(135deg, #f97316, #fb7185)"
+    background: "linear-gradient(135deg, #14b8a6, #3b82f6)", // 🌿 teal → blue
   },
 
   container: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    gap: "15px", // spacing between card & footer
+    gap: "15px",
   },
 
   card: {
@@ -89,7 +117,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "30px",
     borderRadius: "16px",
     background: "#ffffff",
-    boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+    boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
     display: "flex",
     flexDirection: "column",
     gap: "15px",
@@ -97,7 +125,7 @@ const styles: { [key: string]: React.CSSProperties } = {
 
   heading: {
     textAlign: "center",
-    color: "#b91c1c",
+    color: "#0f172a", // dark slate (soft on eyes)
     margin: 0,
     fontSize: "20px",
   },
@@ -105,14 +133,14 @@ const styles: { [key: string]: React.CSSProperties } = {
   subText: {
     textAlign: "center",
     fontSize: "14px",
-    color: "#666",
+    color: "#64748b", // muted gray
     marginBottom: "10px",
   },
 
   input: {
     padding: "12px",
     borderRadius: "8px",
-    border: "1px solid #ddd",
+    border: "1px solid #cbd5f5",
     fontSize: "14px",
     outline: "none",
   },
@@ -122,7 +150,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: "12px",
     border: "none",
     borderRadius: "8px",
-    background: "linear-gradient(135deg, #f59e0b, #dc2626)",
+    background: "linear-gradient(135deg, #14b8a6, #3b82f6)",
     color: "#fff",
     fontWeight: "bold",
     fontSize: "15px",
@@ -132,18 +160,18 @@ const styles: { [key: string]: React.CSSProperties } = {
   footer: {
     textAlign: "center",
     fontSize: "13px",
-    color: "#c2410c",
+    color: "#2563eb",
     cursor: "pointer",
   },
 
   copy: {
     textAlign: "center",
     fontSize: "12px",
-    color: "#eee",
+    color: "#e0f2fe",
   },
 
   link: {
-    color: "#fff",
+    color: "#ffffff",
     textDecoration: "none",
     fontWeight: "bold",
   },
