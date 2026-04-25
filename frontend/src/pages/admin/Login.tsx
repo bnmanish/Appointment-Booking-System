@@ -11,41 +11,61 @@ const Login: React.FC = () => {
 
   return (
     <div style={styles.wrapper}>
-      <form style={styles.card} onSubmit={handleSubmit}>
-        <h2 style={styles.heading}>Welcome Back 👋</h2>
-        <p style={styles.subText}>Login to your account</p>
+      <div style={styles.container}>
+        {/* Login Card */}
+        <form style={styles.card} onSubmit={handleSubmit}>
+          <h2 style={styles.heading}>
+            Appointment Booking System
+          </h2>
 
-        <input
-          type="email"
-          placeholder="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={styles.input}
-          required
-        />
+          <p style={styles.subText}>
+            Please login to continue managing your appointments
+          </p>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={styles.input}
-          required
-        />
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={styles.input}
+            required
+          />
 
-        <button type="submit" style={styles.button}>
-          Login
-        </button>
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={styles.input}
+            required
+          />
 
-        <p style={styles.footer}>Forgot Password?</p>
-      </form>
+          <button type="submit" style={styles.button}>
+            Login
+          </button>
+
+          <p style={styles.footer}>Forgot Password?</p>
+        </form>
+
+        {/* copyright message */}
+        <p style={styles.copy}>
+          © {new Date().getFullYear()} All rights reserved. Created by{" "}
+          <a
+            href="https://github.com/bnmanish"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.link}
+          >
+            B N Manish
+          </a>
+        </p>
+      </div>
     </div>
   );
 };
 
 export default Login;
 
-// 🎨 Styles
 const styles: { [key: string]: React.CSSProperties } = {
   wrapper: {
     minHeight: "100vh",
@@ -53,7 +73,15 @@ const styles: { [key: string]: React.CSSProperties } = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "linear-gradient(135deg, #f59e0b, #dc2626)", // soft orange → deep red
+    // background: "linear-gradient(135deg, #f59e0b, #dc2626)",
+    background: "linear-gradient(135deg, #f97316, #fb7185)"
+  },
+
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "15px", // spacing between card & footer
   },
 
   card: {
@@ -69,8 +97,9 @@ const styles: { [key: string]: React.CSSProperties } = {
 
   heading: {
     textAlign: "center",
-    color: "#b91c1c", // deep red
+    color: "#b91c1c",
     margin: 0,
+    fontSize: "20px",
   },
 
   subText: {
@@ -86,7 +115,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     border: "1px solid #ddd",
     fontSize: "14px",
     outline: "none",
-    transition: "0.3s",
   },
 
   button: {
@@ -99,7 +127,6 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontWeight: "bold",
     fontSize: "15px",
     cursor: "pointer",
-    transition: "0.3s",
   },
 
   footer: {
@@ -107,5 +134,17 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: "13px",
     color: "#c2410c",
     cursor: "pointer",
+  },
+
+  copy: {
+    textAlign: "center",
+    fontSize: "12px",
+    color: "#eee",
+  },
+
+  link: {
+    color: "#fff",
+    textDecoration: "none",
+    fontWeight: "bold",
   },
 };
