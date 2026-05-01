@@ -132,9 +132,4 @@ Example:
 ## 🔒 Basic Rules
 - Prevent double booking  
 - Validate user input  
-- Store all booking data properly  
-
----
-
-## 📅 Created On
-2026-04-10
+- Store all booking data properly
