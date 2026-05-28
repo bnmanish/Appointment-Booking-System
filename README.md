@@ -1,5 +1,14 @@
 # Appointment-Booking-System
 
+## Author
+
+**B N Manish**
+
+- GitHub: [bnmanish](https://github.com/bnmanish)
+- LinkedIn: [B N Manish](https://www.linkedin.com/in/bnmanish/)
+
+---
+
 A full-stack appointment booking system built with Laravel (API) and React (Frontend).
 
 ## Tech Stack
