@@ -58,9 +58,3 @@ npm run dev
 - Admin login and dashboard
 - User appointment booking
 - RESTful API with authentication
-
-## Author
-
-**B N Manish**
-- LinkedIn: https://www.linkedin.com/in/b-n-manish-a14780135/
-- Email: bnmanish006@gmail.com
