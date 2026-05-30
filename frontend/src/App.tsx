@@ -1,26 +1,35 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Home from "./pages/Home";
-import Login from "./pages/admin/Login";
-import Dashboard from "./pages/admin/Dashboard";
-import ProtectedRoute from "./ProtectedRoute";
-
-
-const App: React.FC = () => {
+function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/admin/login" element={<Login />} />
-        <Route path="/admin/dashboard" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
-      </Routes>
-    </BrowserRouter>
+    <div className="login-form-container">
+      <div className="login-form">
+        <h2>Welcome Back</h2>
+
+        <div>
+          <input
+            className="email"
+            type="email"
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div>
+          <input
+            className="password"
+            type="password"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <div>
+          <button className="login-btn">Login</button>
+        </div>
+
+        <div className="extra-links">
+          <a href="#">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
   );
-};
+}
 
 export default App;
