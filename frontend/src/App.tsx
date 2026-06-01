@@ -5,19 +5,61 @@ function App() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorEmail, setErrorEmail] = useState(false);
-  const [errorPassword, setErrorPassword] = useState(false);
+  const [errorEmail, setEmailError] = useState("");
+  const [errorPassword, setPasswordError] = useState("");
 
 
+  const handleClick = async () => {
+    let valid = true;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleClick = () => {
-    console.log(email,password);
+    if (email.trim() === "") {
+      setEmailError("Email is required!");
+      valid = false;
+    } else if (!emailRegex.test(email)) {
+      setEmailError("Please enter a valid email!");
+      valid = false;
+    } else {
+      setEmailError("");
+    }
 
-    const emailEmpty = email.trim() === "";
-    const passwordEmpty = password.trim() === "";
+    if (password.trim() === "") {
+      setPasswordError("Please enter password!");
+      valid = false;
+    } else {
+      setPasswordError("");
+    }
 
-    setErrorEmail(emailEmpty);
-    setErrorPassword(passwordEmpty);
+    if (!valid) return;
+
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      const response = await fetch(apiUrl+'/login',{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.status) {
+        console.log(data.message);
+      } else {
+        console.log(data.message);
+        // Example: show backend error
+        // setPasswordError(data.message || "Invalid credentials");
+      }
+    } catch (error) {
+      console.error("API Error:", error);
+      setPasswordError("Something went wrong. Please try again.");
+    }
 
   };
 
@@ -33,9 +75,9 @@ function App() {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            onFocus={() => setErrorEmail(false)}
+            onFocus={() => setEmailError("")}
           />
-          {errorEmail && <p className="errorcls">Email is required</p>}
+          {errorEmail && <p className="errorcls">{errorEmail}</p>}
         </div>
 
         <div>
@@ -45,9 +87,9 @@ function App() {
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            onFocus={() => setErrorPassword(false)}
+            onFocus={() => setPasswordError("")}
           />
-          {errorPassword && <p className="errorcls">Password is required</p>}
+          {errorPassword && <p className="errorcls">{errorPassword}</p>}
         </div>
 
         <div>
