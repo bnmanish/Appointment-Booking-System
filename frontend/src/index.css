@@ -83,3 +83,8 @@
 .extra-links a:hover {
   text-decoration: underline;
 }
+
+.errorcls{
+  color: red;
+  margin: 4px 0px;
+}

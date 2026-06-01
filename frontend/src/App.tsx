@@ -5,10 +5,20 @@ function App() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorEmail, setErrorEmail] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
+
 
 
   const handleClick = () => {
     console.log(email,password);
+
+    const emailEmpty = email.trim() === "";
+    const passwordEmpty = password.trim() === "";
+
+    setErrorEmail(emailEmpty);
+    setErrorPassword(passwordEmpty);
+
   };
 
   return (
@@ -23,7 +33,9 @@ function App() {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onFocus={() => setErrorEmail(false)}
           />
+          {errorEmail && <p className="errorcls">Email is required</p>}
         </div>
 
         <div>
@@ -33,7 +45,9 @@ function App() {
             placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onFocus={() => setErrorPassword(false)}
           />
+          {errorPassword && <p className="errorcls">Password is required</p>}
         </div>
 
         <div>
