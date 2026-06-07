@@ -1,6 +1,20 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 
 function Login() {
+  // redirect on dashboard if already logged In - starts
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      navigate("/admin/dashboard", { replace: true });
+    }
+  }, [navigate]);
+  // redirect on dashboard if already logged In - ends
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorEmail, setEmailError] = useState("");
@@ -48,6 +62,8 @@ function Login() {
 
       if (data.status) {
         console.log(data.message);
+        localStorage.setItem("token", data.token);
+        navigate("/admin/dashboard");
       } else {
         console.log(data.message);
         // Example: show backend error
