@@ -8,14 +8,20 @@ import Home from "./front/Home";
 
 import AdminLayout from "./pages/AdminLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import FrontLayout from "./front/FrontLayout";
+
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* public routes starts */}
+      <Route path="/" element={<FrontLayout />}>
+        <Route path="/" element={<Home />} />
+      </Route>
       <Route path="/login" element={<Login />} />
-
-
+      {/* public routes ends */}
+      
+      {/* Auth/admin routes starts */}
       <Route path="/admin" element={ 
         <ProtectedRoute> 
           <AdminLayout /> 
@@ -24,6 +30,7 @@ function App() {
         <Route path="users" element={<Users />} />
         <Route path="meetings" element={<Meetings />} />
       </Route>
+      {/* Auth/admin routes ends */}
     </Routes>
   );
 }

@@ -2,9 +2,9 @@ import { Outlet } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-import "../front-layout.css";
+import "../css/front-layout.css";
 
-function AdminLayout() {
+function FrontLayout() {
   return (
     <div className="layout">
 
@@ -21,4 +21,4 @@ function AdminLayout() {
   );
 }
 
-export default AdminLayout;
+export default FrontLayout;
