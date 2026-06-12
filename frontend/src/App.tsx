@@ -16,7 +16,10 @@ function App() {
       <Route path="/login" element={<Login />} />
 
 
-      <Route path="/admin" element={ <ProtectedRoute> <AdminLayout /> </ProtectedRoute> }>
+      <Route path="/admin" element={ 
+        <ProtectedRoute> 
+          <AdminLayout /> 
+        </ProtectedRoute> }>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="users" element={<Users />} />
         <Route path="meetings" element={<Meetings />} />
