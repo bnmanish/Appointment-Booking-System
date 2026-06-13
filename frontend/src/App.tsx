@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import Login from "./pages/Login";
+import Login from "./front/Login";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Meetings from "./pages/Meetings";
@@ -17,8 +17,8 @@ function App() {
       {/* public routes starts */}
       <Route path="/" element={<FrontLayout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
       </Route>
-      <Route path="/login" element={<Login />} />
       {/* public routes ends */}
       
       {/* Auth/admin routes starts */}

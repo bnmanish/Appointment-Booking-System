@@ -130,7 +130,7 @@
 
 /* Footer */
 
-.footer {
+.admin-footer {
   height: 50px;
   background: white;
 
@@ -144,12 +144,12 @@
   font-size: 14px;
 }
 
-.footer a {
+.admin-footer a {
   margin: 0 4px;
   color: #2563eb;
   text-decoration: none;
 }
 
-.footer a:hover {
+.admin-footer a:hover {
   text-decoration: underline;
 }

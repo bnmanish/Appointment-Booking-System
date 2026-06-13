@@ -6,17 +6,14 @@ import "../css/front-layout.css";
 
 function FrontLayout() {
   return (
-    <div className="layout">
+    <div className="front-layout">
+      <Header />
 
-      <div className="main-section">
-        <Header />
+      <main className="front-content">
+        <Outlet />
+      </main>
 
-        <main className="content">
-          <Outlet />
-        </main>
-
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }

@@ -2,7 +2,7 @@ function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer">
+    <footer className="admin-footer">
       © {currentYear} Developed by {" "} 
       <a
         href={import.meta.env.VITE_LINKEDIN_URL}

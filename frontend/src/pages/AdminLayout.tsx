@@ -13,7 +13,7 @@ function AdminLayout() {
       <div className="admin-section">
         <Header />
 
-        <main className="content">
+        <main className="admin-content">
           <Outlet />
         </main>
 
