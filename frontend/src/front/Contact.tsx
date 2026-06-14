@@ -50,7 +50,7 @@ function Contact() {
 
           <h2>Get In Touch</h2>
 
-          <div className="info-item">
+          {/* <div className="info-item">
             <h3>📍 Address</h3>
             <p>Ghaziabad, Uttar Pradesh, India</p>
           </div>
@@ -58,7 +58,7 @@ function Contact() {
           <div className="info-item">
             <h3>📞 Phone</h3>
             <p>+91 9876543210</p>
-          </div>
+          </div> */}
 
           <div className="info-item">
             <h3>✉️ Email</h3>
