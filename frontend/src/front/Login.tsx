@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+
 
 
 function Login() {
@@ -110,6 +111,9 @@ function Login() {
 
       <div className="extra-links">
         <a href="#">Forgot Password?</a>
+      </div>
+      <div className="extra-links">
+          New here? <Link to="/signup">Create an Account</Link>
       </div>
     </div>
   );

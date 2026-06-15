@@ -17,8 +17,7 @@
   margin-bottom: 18px;
 }
 
-.email,
-.password {
+.email,.password,.input {
   width: 100%;
   padding: 14px;
   border: 1px solid #dcdcdc;
@@ -28,8 +27,7 @@
   transition: 0.3s;
 }
 
-.email:focus,
-.password:focus {
+.email:focus,.password:focus,input.focus {
   border-color: #667eea;
   box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
 }

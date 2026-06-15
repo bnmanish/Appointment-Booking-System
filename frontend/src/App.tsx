@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import Login from "./front/Login";
+import SignUp from "./front/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Meetings from "./pages/Meetings";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
       </Route>
       {/* public routes ends */}
       
