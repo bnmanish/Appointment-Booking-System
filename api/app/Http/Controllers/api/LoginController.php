@@ -38,4 +38,33 @@ class LoginController extends Controller
             'user' => $user
         ]);
     }
+
+    public function signup(Request $request){
+        $name = $request->name;
+        $email = $request->email;
+        $password = $request->password;
+
+        $user = User::where('email', $email)->first();
+
+        if ($user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Email already taken!'
+            ]);
+        }
+
+        $user = User::create([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password),
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Account created successfully!',
+            'user' => $user,
+        ]);
+
+    }
+
 }

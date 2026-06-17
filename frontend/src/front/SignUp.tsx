@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import axios from "axios";
 
 
 
@@ -55,30 +56,22 @@ function SignUp() {
 
         try {
             const apiUrl = import.meta.env.VITE_API_URL;
-            const response = await fetch(apiUrl + '/login', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body: JSON.stringify({
+            const { data } = await axios.post(
+                `${apiUrl}/signup`,
+                {
                     email,
                     password,
-                }),
-            }
+                    name,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                }
             );
 
-            const data = await response.json();
-
-            if (data.status) {
-                console.log(data.message);
-                localStorage.setItem("token", data.token);
-                navigate("/admin/dashboard");
-            } else {
-                console.log(data.message);
-                // Example: show backend error
-                // setPasswordError(data.message || "Invalid credentials");
-            }
+            console.log(data);
         } catch (error) {
             console.error("API Error:", error);
             setPasswordError("Something went wrong. Please try again.");
