@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Services\MailService;
+
 
 class LoginController extends Controller
 {
@@ -39,32 +41,51 @@ class LoginController extends Controller
         ]);
     }
 
-    public function signup(Request $request){
-        $name = $request->name;
-        $email = $request->email;
-        $password = $request->password;
-
-        $user = User::where('email', $email)->first();
-
+    public function signup(Request $request, MailService $mailService)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+        $user = User::where('email', $request->email)->first();
         if ($user) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Email already taken!'
-            ]);
+            $status = false;
+            $message = 'Email already taken!';
+        } else {
+            $otp = rand(100000, 999999);
+            // $user = User::create([
+            //     'name' => $request->name,
+            //     'email' => $request->email,
+            //     'password' => Hash::make($request->password),
+            //     // 'otp' => $otp,
+            // ]);
+            // email logic starts
+            $mailService->sendMail(
+                [
+                    $request->email
+                ],
+                'Verify Your Email Address',
+                'mail.signup-otp',
+                [
+                    'name' => $request->email,
+                    'otp'  => $otp,
+                ],
+                [
+                    'cc' => [
+                        'developermanish95@gmail.com',
+                    ]
+                ]
+            );
+            // email logic ends
+
+            $status = true;
+            $message = 'OTP sent to your email!';
         }
-
-        $user = User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => Hash::make($password),
-        ]);
-
         return response()->json([
-            'status' => true,
-            'message' => 'Account created successfully!',
-            'user' => $user,
+            'status' => $status,
+            'message' => $message,
         ]);
-
     }
 
 }
