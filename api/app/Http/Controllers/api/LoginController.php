@@ -54,12 +54,12 @@ class LoginController extends Controller
             $message = 'Email already taken!';
         } else {
             $otp = rand(100000, 999999);
-            // $user = User::create([
-            //     'name' => $request->name,
-            //     'email' => $request->email,
-            //     'password' => Hash::make($request->password),
-            //     // 'otp' => $otp,
-            // ]);
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'otp' => $otp,
+            ]);
             // email logic starts
             $mailService->sendMail(
                 [
@@ -78,7 +78,6 @@ class LoginController extends Controller
                 ]
             );
             // email logic ends
-
             $status = true;
             $message = 'OTP sent to your email!';
         }

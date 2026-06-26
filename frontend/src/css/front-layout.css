@@ -513,3 +513,64 @@ body {
   }
 }
 /* Contact page css ends */
+
+/* verify otp style starts */
+.otp-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.otp-card {
+    width: 420px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.otp-text {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.otp-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.otp-box {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.otp-box:focus {
+    outline: none;
+    border-color: #1677ff;
+}
+
+.resend-section {
+    margin-top: 15px;
+}
+
+.resend-btn {
+    background: none;
+    border: none;
+    color: #1677ff;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.message {
+    margin-bottom: 15px;
+    color: #e53935;
+}
+/* verify otp style ends */

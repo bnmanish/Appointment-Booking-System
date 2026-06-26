@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 
-
-
 function SignUp() {
     // redirect on dashboard if already logged In - starts
     const navigate = useNavigate();
@@ -23,6 +21,7 @@ function SignUp() {
     const [errorEmail, setEmailError] = useState("");
     const [password, setPassword] = useState("");
     const [errorPassword, setPasswordError] = useState("");
+    const [message, setMessage] = useState("");
 
     const handleClick = async () => {
         let valid = true;
@@ -71,7 +70,13 @@ function SignUp() {
                 }
             );
 
-            console.log(data);
+            // console.log(data);
+            setMessage(data.message);
+            if(data.status){
+                localStorage.setItem("email", "email");
+                navigate("/verify-otp");
+            }else{
+            }
         } catch (error) {
             console.error("API Error:", error);
             setPasswordError("Something went wrong. Please try again.");
@@ -82,7 +87,7 @@ function SignUp() {
     return (
         <div className="login-form">
             <h2>Welcome Back</h2>
-
+            <p className="errorcls">{message}</p>
             <div>
                 <input
                     className="input"

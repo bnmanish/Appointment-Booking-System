@@ -8,6 +8,8 @@ import Meetings from "./pages/Meetings";
 import Home from "./front/Home";
 import About from "./front/About";
 import Contact from "./front/Contact";
+import VerifyOtp from "./front/VerifyOtp";
+
 
 import AdminLayout from "./pages/AdminLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -24,6 +26,8 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/verify-otp" element={<VerifyOtp />} />
+
       </Route>
       {/* public routes ends */}
       

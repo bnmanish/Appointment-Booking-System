@@ -19,7 +19,7 @@
                     <tr>
                         <td align="center"
                             style="background:linear-gradient(135deg,#4f46e5,#7c3aed);padding:30px;">
-                            <img src="{{ config('app.url') }}/images/logo.png"
+                            <img src="{{ url('images/logo.png') }}"
                                 alt="Logo"
                                 style="max-width:120px;">
                         </td>
@@ -70,14 +70,14 @@
 
                             <p style="margin:0;font-size:14px;color:#6b7280;">
                                 Need help? Contact us at
-                                <a href="mailto:manish@gmail.com"
+                                <a href="mailto:developermanish95@gmail.com"
                                     style="color:#4f46e5;text-decoration:none;">
-                                    manish@gmail.com
+                                    developermanish95@gmail.com
                                 </a>
                             </p>
 
                             <p style="margin-top:10px;font-size:12px;color:#9ca3af;">
-                                © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+                                © {{ date('Y') }} <a href="https://www.linkedin.com/in/bnmanish/" target="_blank">B N Manish</a>. All rights reserved.
                             </p>
 
                         </td>
