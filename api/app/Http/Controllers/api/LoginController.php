@@ -87,4 +87,28 @@ class LoginController extends Controller
         ]);
     }
 
+    public function verifyOtp(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'otp' => 'required'
+        ]);
+        // return $request->all();
+
+        $email = $request->email;
+        $otp = $request->otp;
+        $user = User::where(['email' => $email, 'otp' => $otp])->first();
+        if($user){
+            $status = true;
+            $message = "Otp verified successfully! Redirecting to login page. . . ";
+        }else{
+            $status = false;
+            $message = "Something went wrong!";
+        }
+
+        return array(
+            'status' => $status,
+            'message' => $message
+        );
+    }
+
 }

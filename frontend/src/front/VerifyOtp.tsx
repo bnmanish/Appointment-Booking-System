@@ -7,6 +7,8 @@ function VerifyOtp() {
     const navigate = useNavigate();
 
     const email = localStorage.getItem("email");
+
+    // alert(email);
     if (!email) {
         navigate("/signup", { replace: true });
     }
@@ -144,8 +146,11 @@ function VerifyOtp() {
             setMessage(data.message);
 
             if (data.status) {
-                // Example redirect
+                // console.log(data);
                 // navigate("/login");
+                setTimeout(() => {
+                    navigate("/login");
+                }, 5000);
             }
         } catch (error) {
             console.error(error);

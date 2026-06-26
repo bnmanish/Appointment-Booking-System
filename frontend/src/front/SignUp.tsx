@@ -73,7 +73,7 @@ function SignUp() {
             // console.log(data);
             setMessage(data.message);
             if(data.status){
-                localStorage.setItem("email", "email");
+                localStorage.setItem("email", email);
                 navigate("/verify-otp");
             }else{
             }
