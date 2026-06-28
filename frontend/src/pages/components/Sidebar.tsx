@@ -9,10 +9,13 @@ function Sidebar() {
         <NavLink to="/admin/dashboard">
           Dashboard
         </NavLink>
-
-        <NavLink to="/admin/users">
-          Users
+        <NavLink to="/admin/meeting-channel">
+          Meeting Channel
         </NavLink>
+
+        {/* <NavLink to="/admin/users">
+          Users
+        </NavLink> */}
 
         <NavLink to="/admin/meetings">
           Meetings

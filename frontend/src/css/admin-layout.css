@@ -153,3 +153,201 @@
 .admin-footer a:hover {
   text-decoration: underline;
 }
+
+/* Meeting channel css starts */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.meeting-page {
+    background: #f4f6fb;
+    /* min-height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.meeting-card {
+    width: 100%;
+    max-width: 900px;
+    background: #fff;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px rgba(0,0,0,.08);
+}
+
+.meeting-card h2 {
+    font-size: 30px;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #777;
+    margin-bottom: 35px;
+}
+
+.meeting-row {
+    display: grid;
+    grid-template-columns: 70px 200px 1fr;
+    align-items: center;
+    gap: 20px;
+
+    padding: 15px;
+    margin-bottom: 12px;
+
+    border: 1px solid #ececec;
+    border-radius: 10px;
+
+    transition: .3s;
+}
+
+.meeting-row:hover {
+    background: #fafafa;
+    border-color: #3b82f6;
+}
+
+.icon-box {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 50%;
+    background: #f5f5f5;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.meeting-icon {
+    font-size: 28px;
+}
+
+.meeting-row label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.meeting-row input {
+    width: 100%;
+    padding: 12px 15px;
+
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+
+    outline: none;
+    font-size: 15px;
+
+    transition: .3s;
+}
+
+.meeting-row input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+
+.button-area {
+    margin-top: 30px;
+    text-align: right;
+}
+
+.button-area button {
+    border: none;
+    background: #2563eb;
+    color: white;
+
+    padding: 14px 35px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    border-radius: 8px;
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.button-area button:hover {
+    background: #1d4ed8;
+}
+
+/* Icon Colors */
+
+.google {
+    color: #34a853;
+}
+
+.zoom {
+    color: #2d8cff;
+}
+
+.teams {
+    color: #5b5fc7;
+}
+
+.webex {
+    color: #00bceb;
+}
+
+.cisco {
+    color: #049fd9;
+}
+
+.jitsi {
+    color: #f7931e;
+}
+
+.skype {
+    color: #00aff0;
+}
+
+.slack {
+    color: #611f69;
+}
+
+.discord {
+    color: #5865f2;
+}
+
+.whatsapp {
+    color: #25d366;
+}
+
+.telegram {
+    color: #0088cc;
+}
+
+.signal {
+    color: #3a76f0;
+}
+
+.other {
+    color: #ef4444;
+}
+
+.phone {
+    color: #16a34a;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .meeting-row {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .icon-box {
+        margin: auto;
+    }
+
+    .button-area {
+        text-align: center;
+    }
+}
+/* Meeting channel css ends */

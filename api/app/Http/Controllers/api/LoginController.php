@@ -99,6 +99,8 @@ class LoginController extends Controller
         $user = User::where(['email' => $email, 'otp' => $otp])->first();
         if($user){
             $status = true;
+            $user->is_email_verified = "yes";
+            $user->save();
             $message = "Otp verified successfully! Redirecting to login page. . . ";
         }else{
             $status = false;

@@ -5,15 +5,21 @@ import SignUp from "./front/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import Meetings from "./pages/Meetings";
+import AdminLayout from "./pages/AdminLayout";
+import MeetingChannel from "./pages/MeetingChannel";
+
+
+
+
+
+import ProtectedRoute from "./components/ProtectedRoute";
+import FrontLayout from "./front/FrontLayout";
 import Home from "./front/Home";
 import About from "./front/About";
 import Contact from "./front/Contact";
 import VerifyOtp from "./front/VerifyOtp";
 
 
-import AdminLayout from "./pages/AdminLayout";
-import ProtectedRoute from "./components/ProtectedRoute";
-import FrontLayout from "./front/FrontLayout";
 
 
 function App() {
@@ -37,6 +43,7 @@ function App() {
           <AdminLayout /> 
         </ProtectedRoute> }>
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="meeting-channel" element={<MeetingChannel />} />
         <Route path="users" element={<Users />} />
         <Route path="meetings" element={<Meetings />} />
       </Route>
