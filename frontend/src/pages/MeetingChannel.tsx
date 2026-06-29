@@ -1,113 +1,94 @@
+import { useState } from "react";
+import { FaGoogle, FaPhone, FaMicrosoft } from "react-icons/fa";
+import { SiZoom } from "react-icons/si";
 
-import {
-  FaGoogle,
-  FaPhone,
-  FaSlack,
-  FaDiscord,
-  FaMicrosoft,
-} from "react-icons/fa";
+const MeetingChannel = () => {
+  const [googleMeet, setGoogleMeet] = useState<string>("");
+  const [zoom, setZoom] = useState<string>("");
+  const [microsoftTeams, setMicrosoftTeams] = useState<string>("");
+  const [mobileCall, setMobileCall] = useState<string>("");
 
-import {
-  SiZoom,
-  SiCisco,
-  SiJitsi,
-  SiWhatsapp,
-  SiTelegram,
-  SiSignal,
-  SiWebex,
-} from "react-icons/si";
+  const handleSave = () => {
+    const payload = {
+      google_meet: googleMeet,
+      zoom,
+      microsoft_teams: microsoftTeams,
+      mobile_call: mobileCall,
+    };
 
-import { MdVideoCall } from "react-icons/md";
+    console.log(payload);
 
-const meetingPlatforms = [
-  {
-    name: "Google Meet",
-    icon: <FaGoogle className="meeting-icon google" />,
-    placeholder: "https://meet.google.com/...",
-  },
-  {
-    name: "Zoom",
-    icon: <SiZoom className="meeting-icon zoom" />,
-    placeholder: "https://zoom.us/j/...",
-  },
-  {
-    name: "Microsoft Teams",
-    icon: <FaMicrosoft className="meeting-icon teams" />,
-    placeholder: "https://teams.microsoft.com/...",
-  },
-//   {
-//     name: "Cisco Webex",
-//     icon: <SiWebex className="meeting-icon webex" />,
-//     placeholder: "https://company.webex.com/...",
-//   },
-//   {
-//     name: "Cisco Meeting",
-//     icon: <SiCisco className="meeting-icon cisco" />,
-//     placeholder: "Cisco Meeting Link",
-//   },
-//   {
-//     name: "Jitsi Meet",
-//     icon: <SiJitsi className="meeting-icon jitsi" />,
-//     placeholder: "https://meet.jit.si/...",
-//   },
-//   {
-//     name: "Slack Huddle",
-//     icon: <FaSlack className="meeting-icon slack" />,
-//     placeholder: "Slack Huddle Link",
-//   },
-//   {
-//     name: "Discord",
-//     icon: <FaDiscord className="meeting-icon discord" />,
-//     placeholder: "Discord Invite Link",
-//   },
-//   {
-//     name: "WhatsApp Video",
-//     icon: <SiWhatsapp className="meeting-icon whatsapp" />,
-//     placeholder: "WhatsApp Call Link",
-//   },
-//   {
-//     name: "Telegram",
-//     icon: <SiTelegram className="meeting-icon telegram" />,
-//     placeholder: "Telegram Call Link",
-//   },
-//   {
-//     name: "Signal",
-//     icon: <SiSignal className="meeting-icon signal" />,
-//     placeholder: "Signal Call Link",
-//   },
-//   {
-//     name: "Other Video Meeting",
-//     icon: <MdVideoCall className="meeting-icon other" />,
-//     placeholder: "Meeting URL",
-//   },
-];
+    // Call your API here
+    // axios.post("/api/meeting-channel", payload);
+  };
 
-function MeetingChannel() {
   return (
     <div className="meeting-page">
       <div className="meeting-card">
-
         <h2>Meeting Channels</h2>
 
         <p className="subtitle">
           Configure your preferred meeting platforms.
         </p>
 
-        {meetingPlatforms.map((platform) => (
-          <div className="meeting-row" key={platform.name}>
-            <div className="icon-box">
-              {platform.icon}
-            </div>
-
-            <label>{platform.name}</label>
-
-            <input
-              type="url"
-              placeholder={platform.placeholder}
-            />
+        {/* Google Meet */}
+        <div className="meeting-row">
+          <div className="icon-box">
+            <FaGoogle className="meeting-icon google" />
           </div>
-        ))}
 
+          <label>Google Meet</label>
+
+          <input
+            type="url"
+            name="google_meet"
+            placeholder="https://meet.google.com/..."
+            value={googleMeet}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setGoogleMeet(e.target.value)
+            }
+          />
+        </div>
+
+        {/* Zoom */}
+        <div className="meeting-row">
+          <div className="icon-box">
+            <SiZoom className="meeting-icon zoom" />
+          </div>
+
+          <label>Zoom</label>
+
+          <input
+            type="url"
+            name="zoom"
+            placeholder="https://zoom.us/j/..."
+            value={zoom}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setZoom(e.target.value)
+            }
+          />
+        </div>
+
+        {/* Microsoft Teams */}
+        <div className="meeting-row">
+          <div className="icon-box">
+            <FaMicrosoft className="meeting-icon teams" />
+          </div>
+
+          <label>Microsoft Teams</label>
+
+          <input
+            type="url"
+            name="microsoft_teams"
+            placeholder="https://teams.microsoft.com/..."
+            value={microsoftTeams}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setMicrosoftTeams(e.target.value)
+            }
+          />
+        </div>
+
+        {/* Mobile Call */}
         <div className="meeting-row">
           <div className="icon-box">
             <FaPhone className="meeting-icon phone" />
@@ -117,19 +98,23 @@ function MeetingChannel() {
 
           <input
             type="tel"
+            name="mobile_call"
             placeholder="+91 9876543210"
+            value={mobileCall}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setMobileCall(e.target.value)
+            }
           />
         </div>
 
         <div className="button-area">
-          <button type="button">
+          <button type="button" onClick={handleSave}>
             Save Meeting Channels
           </button>
         </div>
-
       </div>
     </div>
   );
-}
+};
 
 export default MeetingChannel;

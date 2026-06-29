@@ -49,4 +49,28 @@ class MeetingChannelController extends Controller
             'message' => 'Meeting channel updated successfully!'
         ]);
     }
+
+    public function getMeetingChannelByEmail(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email'             => 'required|email|exists:users,email',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $user = User::select('id')->where('email', $request->email)->first();
+
+        $meetingData = MeetingChannel::select('id','google_meet','zoom','microsoft_teams','whatsapp_video','other_video','mobile_call')->where(['user_id' => $user->id])->first();
+
+        return response()->json([
+            'data' => $meetingData,
+        ]);
+
+    }
+
 }
