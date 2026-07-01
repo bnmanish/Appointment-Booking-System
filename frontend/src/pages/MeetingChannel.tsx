@@ -1,34 +1,100 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { FaGoogle, FaPhone, FaMicrosoft } from "react-icons/fa";
-import { SiZoom } from "react-icons/si";
+import { SiZoom, SiWhatsapp } from "react-icons/si";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const MeetingChannel = () => {
-  const [googleMeet, setGoogleMeet] = useState<string>("");
-  const [zoom, setZoom] = useState<string>("");
-  const [microsoftTeams, setMicrosoftTeams] = useState<string>("");
-  const [mobileCall, setMobileCall] = useState<string>("");
+  const [googleMeet, setGoogleMeet] = useState("");
+  const [zoom, setZoom] = useState("");
+  const [microsoftTeams, setMicrosoftTeams] = useState("");
+  const [whatsappVideo, setWhatsappVideo] = useState("");
 
-  const handleSave = () => {
-    const payload = {
-      google_meet: googleMeet,
-      zoom,
-      microsoft_teams: microsoftTeams,
-      mobile_call: mobileCall,
-    };
+  const [mobileCall, setMobileCall] = useState("");
 
-    console.log(payload);
+  const [loading, setLoading] = useState(false);
 
-    // Call your API here
-    // axios.post("/api/meeting-channel", payload);
+  const token = localStorage.getItem("token");
+  const email = localStorage.getItem("email");
+
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: "application/json",
   };
+
+  // Fetch existing meeting channels
+  const fetchMeetingChannels = async () => {
+    try {
+      setLoading(true);
+
+      const response = await axios.post(
+        `${API_URL}/get-meeting-channel-by-email`,
+        { email: email },
+        { headers }
+      );
+
+      const data = response.data.data;
+
+      setGoogleMeet(data.google_meet || "");
+      setZoom(data.zoom || "");
+      setMicrosoftTeams(data.microsoft_teams || "");
+      setWhatsappVideo(data.whatsapp_video || "");
+      setMobileCall(data.mobile_call || "");
+    } catch (error: any) {
+      console.error(error);
+
+      if (error.response) {
+        alert(error.response.data.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Save meeting channels
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+
+      const payload = {
+        email: email,
+        google_meet: googleMeet,
+        zoom,
+        microsoft_teams: microsoftTeams,
+        whatsapp_video: whatsappVideo,
+        mobile_call: mobileCall,
+      };
+
+      const response = await axios.post(
+        `${API_URL}/update-meeting-channel`,
+        payload,
+        { headers }
+      );
+
+      alert(response.data.message || "Meeting channels updated successfully.");
+    } catch (error: any) {
+      console.error(error);
+
+      if (error.response) {
+        alert(error.response.data.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMeetingChannels();
+  }, []);
 
   return (
     <div className="meeting-page">
       <div className="meeting-card">
         <h2>Meeting Channels</h2>
-
         <p className="subtitle">
-          Configure your preferred meeting platforms.
+          Add your preferred meeting platforms.
         </p>
 
         {/* Google Meet */}
@@ -41,12 +107,9 @@ const MeetingChannel = () => {
 
           <input
             type="url"
-            name="google_meet"
             placeholder="https://meet.google.com/..."
             value={googleMeet}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setGoogleMeet(e.target.value)
-            }
+            onChange={(e) => setGoogleMeet(e.target.value)}
           />
         </div>
 
@@ -60,12 +123,9 @@ const MeetingChannel = () => {
 
           <input
             type="url"
-            name="zoom"
             placeholder="https://zoom.us/j/..."
             value={zoom}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setZoom(e.target.value)
-            }
+            onChange={(e) => setZoom(e.target.value)}
           />
         </div>
 
@@ -79,12 +139,25 @@ const MeetingChannel = () => {
 
           <input
             type="url"
-            name="microsoft_teams"
             placeholder="https://teams.microsoft.com/..."
             value={microsoftTeams}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setMicrosoftTeams(e.target.value)
-            }
+            onChange={(e) => setMicrosoftTeams(e.target.value)}
+          />
+        </div>
+
+        {/* WhatsApp Video */}
+        <div className="meeting-row">
+          <div className="icon-box">
+            <SiWhatsapp className="meeting-icon whatsapp" />
+          </div>
+
+          <label>WhatsApp Video</label>
+
+          <input
+            type="url"
+            placeholder="https://wa.me/919876543210"
+            value={whatsappVideo}
+            onChange={(e) => setWhatsappVideo(e.target.value)}
           />
         </div>
 
@@ -98,18 +171,19 @@ const MeetingChannel = () => {
 
           <input
             type="tel"
-            name="mobile_call"
             placeholder="+91 9876543210"
             value={mobileCall}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setMobileCall(e.target.value)
-            }
+            onChange={(e) => setMobileCall(e.target.value)}
           />
         </div>
 
         <div className="button-area">
-          <button type="button" onClick={handleSave}>
-            Save Meeting Channels
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={loading}
+          >
+            {loading ? "Please Wait..." : "Save Meeting Channels"}
           </button>
         </div>
       </div>

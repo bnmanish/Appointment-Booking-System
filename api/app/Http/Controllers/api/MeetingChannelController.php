@@ -19,7 +19,7 @@ class MeetingChannelController extends Controller
             'google_meet'       => 'nullable|url',
             'zoom'              => 'nullable|url',
             'microsoft_teams'   => 'nullable|url',
-            'whatsapp_video'    => 'nullable|url',
+            'whatsapp_video'    => 'nullable|string|max:20',
             'mobile_call'       => 'nullable|string|max:20',
         ]);
 
