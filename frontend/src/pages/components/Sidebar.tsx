@@ -15,6 +15,9 @@ function Sidebar() {
         <NavLink to="/admin/events">
           Events
         </NavLink>
+        <NavLink to="/admin/events-create">
+          Events
+        </NavLink>
 
         {/* <NavLink to="/admin/users">
           Users

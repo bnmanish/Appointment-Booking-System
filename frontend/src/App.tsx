@@ -8,6 +8,8 @@ import Meetings from "./pages/Meetings";
 import AdminLayout from "./pages/AdminLayout";
 import MeetingChannel from "./pages/MeetingChannel";
 import Events from "./pages/Events";
+import EventCreate from "./pages/EventCreate";
+
 
 
 
@@ -49,6 +51,8 @@ function App() {
         <Route path="users" element={<Users />} />
         <Route path="meetings" element={<Meetings />} />
         <Route path="events" element={<Events />} />
+        <Route path="events-create" element={<EventCreate />} />
+
 
       </Route>
       {/* Auth/admin routes ends */}
