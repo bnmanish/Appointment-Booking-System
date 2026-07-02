@@ -12,6 +12,9 @@ function Sidebar() {
         <NavLink to="/admin/meeting-channel">
           Meeting Channel
         </NavLink>
+        <NavLink to="/admin/events">
+          Events
+        </NavLink>
 
         {/* <NavLink to="/admin/users">
           Users
