@@ -84,7 +84,7 @@ export default function EventCreate() {
 
       <div className="card">
 
-        <h1>Create Interview Event</h1>
+        <h1>Create Event</h1>
 
         <div className="form-group">
           <label>Event Name</label>
