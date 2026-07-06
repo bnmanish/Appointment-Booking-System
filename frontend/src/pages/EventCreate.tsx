@@ -1,5 +1,4 @@
-import { useState } from "react";
-// import "./EventCreate.css";
+import { useRef, useState } from "react";
 
 interface TimeSlot {
   start: string;
@@ -24,6 +23,13 @@ const weekDays = [
 export default function EventCreate() {
   const [eventName, setEventName] = useState("");
   const [description, setDescription] = useState("");
+  const [meetingPlatform, setMeetingPlatform] = useState("Google Meet");
+  const [duration, setDuration] = useState("30");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const startDateRef = useRef<HTMLInputElement>(null);
+  const endDateRef = useRef<HTMLInputElement>(null);
 
   const [availability, setAvailability] = useState<
     Record<string, DayAvailability>
@@ -38,24 +44,23 @@ export default function EventCreate() {
   );
 
   const toggleDay = (day: string) => {
-    setAvailability({
-      ...availability,
+    setAvailability((prev) => ({
+      ...prev,
       [day]: {
-        ...availability[day],
-        enabled: !availability[day].enabled,
+        ...prev[day],
+        enabled: !prev[day].enabled,
       },
-    });
+    }));
   };
 
   const addSlot = (day: string) => {
-    const data = { ...availability };
-
-    data[day].slots.push({
-      start: "",
-      end: "",
-    });
-
-    setAvailability(data);
+    setAvailability((prev) => ({
+      ...prev,
+      [day]: {
+        ...prev[day],
+        slots: [...prev[day].slots, { start: "", end: "" }],
+      },
+    }));
   };
 
   const updateSlot = (
@@ -64,31 +69,50 @@ export default function EventCreate() {
     field: "start" | "end",
     value: string
   ) => {
-    const data = { ...availability };
+    setAvailability((prev) => {
+      const slots = [...prev[day].slots];
+      slots[index] = {
+        ...slots[index],
+        [field]: value,
+      };
 
-    data[day].slots[index][field] = value;
-
-    setAvailability(data);
+      return {
+        ...prev,
+        [day]: {
+          ...prev[day],
+          slots,
+        },
+      };
+    });
   };
 
   const removeSlot = (day: string, index: number) => {
-    const data = { ...availability };
+    setAvailability((prev) => ({
+      ...prev,
+      [day]: {
+        ...prev[day],
+        slots: prev[day].slots.filter((_, i) => i !== index),
+      },
+    }));
+  };
 
-    data[day].slots.splice(index, 1);
+  const openPicker = (
+    ref: React.RefObject<HTMLInputElement | null>
+  ) => {
+    ref.current?.focus();
 
-    setAvailability(data);
+    if (ref.current?.showPicker) {
+      ref.current.showPicker();
+    }
   };
 
   return (
     <div className="page">
-
       <div className="card">
-
         <h1>Create Event</h1>
 
         <div className="form-group">
           <label>Event Name</label>
-
           <input
             value={eventName}
             onChange={(e) => setEventName(e.target.value)}
@@ -98,7 +122,6 @@ export default function EventCreate() {
 
         <div className="form-group">
           <label>Description</label>
-
           <textarea
             rows={4}
             value={description}
@@ -107,11 +130,12 @@ export default function EventCreate() {
         </div>
 
         <div className="grid2">
-
           <div className="form-group">
             <label>Meeting Platform</label>
-
-            <select>
+            <select
+              value={meetingPlatform}
+              onChange={(e) => setMeetingPlatform(e.target.value)}
+            >
               <option>Google Meet</option>
               <option>Zoom</option>
               <option>Microsoft Teams</option>
@@ -121,65 +145,77 @@ export default function EventCreate() {
 
           <div className="form-group">
             <label>Duration</label>
-
-            <select>
-              <option>15 Minutes</option>
-              <option>30 Minutes</option>
-              <option>45 Minutes</option>
-              <option>60 Minutes</option>
+            <select
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+            >
+              <option value="15">15 Minutes</option>
+              <option value="30">30 Minutes</option>
+              <option value="45">45 Minutes</option>
+              <option value="60">60 Minutes</option>
             </select>
           </div>
 
-          <div className="form-group">
+          <div
+            className="form-group"
+            onClick={() => openPicker(startDateRef)}
+          >
             <label>Start Date</label>
 
-            <input type="date" />
+            <input
+              ref={startDateRef}
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              onFocus={() => startDateRef.current?.showPicker?.()}
+            />
           </div>
 
-          <div className="form-group">
+          <div
+            className="form-group"
+            onClick={() => openPicker(endDateRef)}
+          >
             <label>End Date (Optional)</label>
 
-            <input type="date" />
+            <input
+              ref={endDateRef}
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              onFocus={() => endDateRef.current?.showPicker?.()}
+            />
           </div>
-
         </div>
 
         <h2>Availability</h2>
 
         {weekDays.map((day) => (
           <div className="day-card" key={day}>
-
             <div className="day-header">
-
               <label>
-
                 <input
                   type="checkbox"
                   checked={availability[day].enabled}
                   onChange={() => toggleDay(day)}
                 />
-
                 {day}
-
               </label>
 
               {availability[day].enabled && (
                 <button
+                  type="button"
                   className="add-btn"
                   onClick={() => addSlot(day)}
                 >
                   + Add Slot
                 </button>
               )}
-
             </div>
 
             {availability[day].enabled && (
               <div>
-
                 {availability[day].slots.map((slot, index) => (
                   <div className="slot-row" key={index}>
-
                     <input
                       type="time"
                       value={slot.start}
@@ -199,27 +235,36 @@ export default function EventCreate() {
                     />
 
                     <button
+                      type="button"
                       className="delete-btn"
                       onClick={() => removeSlot(day, index)}
                     >
                       Delete
                     </button>
-
                   </div>
                 ))}
-
               </div>
             )}
-
           </div>
         ))}
 
-        <button className="save-btn">
+        <button
+          className="save-btn"
+          onClick={() => {
+            console.log({
+              eventName,
+              description,
+              meetingPlatform,
+              duration,
+              startDate,
+              endDate,
+              availability,
+            });
+          }}
+        >
           Save Event
         </button>
-
       </div>
-
     </div>
   );
 }
