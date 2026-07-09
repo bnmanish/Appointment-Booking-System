@@ -9,23 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('event_availabilities', function (Blueprint $table) {
-
             $table->id();
-
-            $table->foreignId('event_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
-            $table->enum('day', [
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday',
-                'Sunday'
-            ]);
-
+            $table->foreignId('event_id')->constrained()->cascadeOnDelete();
+            $table->enum('day', ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']);
             $table->timestamps();
         });
     }
