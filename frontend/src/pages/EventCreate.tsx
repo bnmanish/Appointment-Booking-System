@@ -106,6 +106,18 @@ export default function EventCreate() {
     }
   };
 
+  const handleFormSubmit = () => {
+    console.log({
+              eventName,
+              description,
+              meetingPlatform,
+              duration,
+              startDate,
+              endDate,
+              availability,
+            });
+  };
+
   return (
     <div className="page">
       <div className="card">
@@ -250,17 +262,7 @@ export default function EventCreate() {
 
         <button
           className="save-btn"
-          onClick={() => {
-            console.log({
-              eventName,
-              description,
-              meetingPlatform,
-              duration,
-              startDate,
-              endDate,
-              availability,
-            });
-          }}
+          onClick={()=> handleFormSubmit()}
         >
           Save Event
         </button>
