@@ -12,6 +12,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/verify-otp', [LoginController::class, 'verifyOtp']);
     Route::post('/update-meeting-channel', [MeetingChannelController::class, 'updateMeetingChannel']);
     Route::post('/get-meeting-channel-by-email', [MeetingChannelController::class, 'getMeetingChannelByEmail']);
+
+    Route::post('/get-user-meeting-channel', [MeetingChannelController::class, 'getUserMeetingChannel']);
+
 });
 
 
