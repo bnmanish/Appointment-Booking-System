@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import axios from "axios";
+
 
 interface TimeSlot {
   start: string;
@@ -117,6 +119,33 @@ export default function EventCreate() {
               availability,
             });
   };
+  
+  const API_URL = import.meta.env.VITE_API_URL;
+  const token = localStorage.getItem("token");
+  const email = localStorage.getItem("email");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: "application/json",
+  };
+  // Fetch existing meeting channels list for dropdown
+    try {
+      const response = axios.post(
+        `${API_URL}/get-user-meeting-channel-list`,
+        { email: email },
+        { headers }
+      );
+
+      const dropdownData = response.data.data;
+
+      console.log(dropdownData);
+
+    } catch (error: any) {
+      console.error(error);
+
+      if (error.response) {
+        alert(error.response.data.message);
+      }
+    }
 
   return (
     <div className="page">

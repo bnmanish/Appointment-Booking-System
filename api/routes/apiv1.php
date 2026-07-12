@@ -13,7 +13,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/update-meeting-channel', [MeetingChannelController::class, 'updateMeetingChannel']);
     Route::post('/get-meeting-channel-by-email', [MeetingChannelController::class, 'getMeetingChannelByEmail']);
 
-    Route::post('/get-user-meeting-channel', [MeetingChannelController::class, 'getUserMeetingChannel']);
+    Route::post('/get-user-meeting-channel-list', [MeetingChannelController::class, 'getUserMeetingChannelList']);
 
 });
 
