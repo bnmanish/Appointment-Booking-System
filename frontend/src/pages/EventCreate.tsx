@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 
@@ -29,6 +29,7 @@ export default function EventCreate() {
   const [duration, setDuration] = useState("30");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [meetingChannels, setMeetingChannels] = useState<{ label: string; value: string }[]>([]);
 
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
@@ -123,29 +124,48 @@ export default function EventCreate() {
   const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    Accept: "application/json",
-  };
-  // Fetch existing meeting channels list for dropdown
-    try {
-      const response = axios.post(
-        `${API_URL}/get-user-meeting-channel-list`,
-        { email: email },
-        { headers }
-      );
 
-      const dropdownData = response.data.data;
+  useEffect(() => {
+    const fetchMeetingChannels = async () => {
+      try {
+        const response = await axios.post(
+          `${API_URL}/get-user-meeting-channel-list`,
+          { email },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        );
 
-      console.log(dropdownData);
+        const data = response.data.data;
 
-    } catch (error: any) {
-      console.error(error);
+        const channels = [
+          { label: "Google Meet", value: data.google_meet },
+          { label: "Zoom", value: data.zoom },
+          { label: "Microsoft Teams", value: data.microsoft_teams },
+          { label: "WhatsApp Video", value: data.whatsapp_video },
+          { label: "Other Video", value: data.other_video },
+          { label: "Mobile Call", value: data.mobile_call },
+        ].filter((item) => item.value);
 
-      if (error.response) {
-        alert(error.response.data.message);
+        setMeetingChannels(channels);
+
+        if (channels.length > 0) {
+          setMeetingPlatform(channels[0].value);
+        }
+      } catch (error: any) {
+        console.error(error);
+
+        if (error.response) {
+          alert(error.response.data.message);
+        }
       }
-    }
+    };
+
+    fetchMeetingChannels();
+  }, []);
 
   return (
     <div className="page">
@@ -173,14 +193,12 @@ export default function EventCreate() {
         <div className="grid2">
           <div className="form-group">
             <label>Meeting Platform</label>
-            <select
-              value={meetingPlatform}
-              onChange={(e) => setMeetingPlatform(e.target.value)}
-            >
-              <option>Google Meet</option>
-              <option>Zoom</option>
-              <option>Microsoft Teams</option>
-              <option>Webex</option>
+            <select value={meetingPlatform} onChange={(e) => setMeetingPlatform(e.target.value)}>
+              {meetingChannels.map((channel) => (
+                <option key={channel.label} value={channel.value}>
+                  {channel.label}
+                </option>
+              ))}
             </select>
           </div>
 
