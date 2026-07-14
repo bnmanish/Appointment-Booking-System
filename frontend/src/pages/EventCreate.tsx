@@ -173,7 +173,7 @@ export default function EventCreate() {
         <h1>Create Event</h1>
 
         <div className="form-group">
-          <label>Event Name</label>
+          <label>Event Name<span className="redAstric">*</span></label>
           <input
             value={eventName}
             onChange={(e) => setEventName(e.target.value)}
@@ -192,7 +192,7 @@ export default function EventCreate() {
 
         <div className="grid2">
           <div className="form-group">
-            <label>Meeting Platform</label>
+            <label>Meeting Platform<span className="redAstric">*</span></label>
             <select value={meetingPlatform} onChange={(e) => setMeetingPlatform(e.target.value)}>
               {meetingChannels.map((channel) => (
                 <option key={channel.label} value={channel.value}>
@@ -203,7 +203,7 @@ export default function EventCreate() {
           </div>
 
           <div className="form-group">
-            <label>Duration</label>
+            <label>Duration<span className="redAstric">*</span></label>
             <select
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
@@ -219,7 +219,7 @@ export default function EventCreate() {
             className="form-group"
             onClick={() => openPicker(startDateRef)}
           >
-            <label>Start Date</label>
+            <label>Start Date<span className="redAstric">*</span></label>
 
             <input
               ref={startDateRef}
@@ -246,7 +246,7 @@ export default function EventCreate() {
           </div>
         </div>
 
-        <h2>Availability</h2>
+        <h2>Availability<span className="redAstric">*</span></h2>
 
         {weekDays.map((day) => (
           <div className="day-card" key={day}>
