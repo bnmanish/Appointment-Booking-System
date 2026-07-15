@@ -109,8 +109,10 @@ export default function EventCreate() {
     }
   };
 
+  const email = localStorage.getItem("email");
+
   const handleFormSubmit = () => {
-    console.log({
+    const data = {
               eventName,
               description,
               meetingPlatform,
@@ -118,12 +120,38 @@ export default function EventCreate() {
               startDate,
               endDate,
               availability,
-            });
+              email,
+            }
+    // console.log(data);
+
+    try {
+        const response = axios.post(
+          `${API_URL}/create-event`,
+          { data },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        );
+
+        const res = response;
+        console.log(res);
+
+      } catch (error: any) {
+        console.error(error);
+
+        if (error.response) {
+          alert(error.response);
+        }
+      }
+
   };
   
   const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token");
-  const email = localStorage.getItem("email");
+
 
   useEffect(() => {
     const fetchMeetingChannels = async () => {

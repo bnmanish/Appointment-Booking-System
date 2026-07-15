@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\LoginController;
 use App\Http\Controllers\api\MeetingChannelController;
+use App\Http\Controllers\api\EventController;
 
 
 Route::post('/login', [LoginController::class, 'login']);
@@ -14,6 +15,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/get-meeting-channel-by-email', [MeetingChannelController::class, 'getMeetingChannelByEmail']);
 
     Route::post('/get-user-meeting-channel-list', [MeetingChannelController::class, 'getUserMeetingChannelList']);
+    Route::post('/create-event', [EventController::class, 'createEvent']);
+
+
 
 });
 
