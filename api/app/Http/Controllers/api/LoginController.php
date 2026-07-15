@@ -30,7 +30,7 @@ class LoginController extends Controller
             ], 401);
         }
 
-        // 🔑 Generate token
+        // Generate token
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
