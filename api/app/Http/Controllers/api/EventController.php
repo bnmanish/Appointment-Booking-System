@@ -13,7 +13,7 @@ class EventController extends Controller
         $data = $request->data;
 
 
-        $email = $data['email'];
+        // $email = $data['email'];
         $user = User::where(['email'=>$email])->first();
         $event = new Event;
         $event->user_id = $user->id;
